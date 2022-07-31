@@ -112,6 +112,7 @@ namespace u21566641_HW04.Controllers
         }
 
         [Authorize]
+        [HttpPost]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();

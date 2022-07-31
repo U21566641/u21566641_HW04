@@ -8,6 +8,7 @@ namespace u21566641_HW04.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
             return View();
