@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using u21566641_HW04.Models;
 
 namespace u21566641_HW04.Controllers
@@ -16,9 +17,9 @@ namespace u21566641_HW04.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost]//Register the user
         [ValidateAntiForgeryToken]
-        public ActionResult Registration(User user)//Register the user
+        public ActionResult Registration(User user)
         {
             bool status = false;
             string message = "";
@@ -58,6 +59,63 @@ namespace u21566641_HW04.Controllers
             ViewBag.Message = message;
             ViewBag.Status = status;
             return View(user);
+        }
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(UserLogin login, String returnUrl="")//Logs in the user
+        {
+            string message = "";
+
+            using(AgriMarketEntities dc = new AgriMarketEntities())
+            {
+                var v = dc.Users.Where(a => a.EmailAddress == login.EmailAddress).FirstOrDefault();
+                if(v != null)
+                {
+                    if (string.Compare(Cryptography.Hash(login.Password), v.Password)==0)
+                    {
+                        int timeout = login.RememberMe ? 525600 : 1; //timeout time for cookie based on rememberMe
+                        var ticket = new FormsAuthenticationTicket(login.EmailAddress, login.RememberMe, timeout);
+                        string encrypted = FormsAuthentication.Encrypt(ticket);
+                        var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
+                        cookie.Expires = DateTime.Now.AddMinutes(timeout);
+                        cookie.HttpOnly = true;
+                        Response.Cookies.Add(cookie);
+
+                        if (Url.IsLocalUrl(returnUrl))
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
+                    else
+                    {
+                        message = "Invalid login details";
+                    }
+                }
+                else
+                {
+                    message = "Invalid login details";
+                }
+            }
+            ViewBag.Message = message;
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "User");
         }
 
         [NonAction]
