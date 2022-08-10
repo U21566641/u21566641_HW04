@@ -69,7 +69,7 @@ namespace u21566641_HW04.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(UserLogin login, String returnUrl="")//Logs in the user
+        public ActionResult Login(UserLogin login, String returnUrl="")
         {
             string message = "";
 
