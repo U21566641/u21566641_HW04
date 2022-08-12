@@ -56,7 +56,7 @@ namespace u21566641_HW04.Controllers
                 message = "Invalid Request";
             }
 
-            ViewBag.Message = message;
+            ViewBag.StatusMessage = message;
             ViewBag.Status = status;
             return View(user);
         }
@@ -107,7 +107,7 @@ namespace u21566641_HW04.Controllers
                     message = "Invalid login details";
                 }
             }
-            ViewBag.Message = message;
+            ViewBag.StatusMessage = message;
             return View();
         }
 
