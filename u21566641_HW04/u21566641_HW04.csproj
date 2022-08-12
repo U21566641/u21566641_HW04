@@ -150,6 +150,7 @@
       <DependentUpon>AgriMarket.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Crop.cs" />
+    <Compile Include="Models\CropTypes\Food.cs" />
     <Compile Include="Models\Extended\User.cs" />
     <Compile Include="Models\User.cs">
       <DependentUpon>AgriMarket.tt</DependentUpon>
