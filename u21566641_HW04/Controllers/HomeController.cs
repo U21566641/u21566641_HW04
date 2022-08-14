@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using u21566641_HW04.Models;
 
+
 namespace u21566641_HW04.Controllers
 {
     public class HomeController : Controller
@@ -30,7 +31,7 @@ namespace u21566641_HW04.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles ="Supplier")]
         public ActionResult CropRegistration()
         {
             return View();
@@ -40,6 +41,22 @@ namespace u21566641_HW04.Controllers
         public ActionResult CropRegistration(Crop crop)
         {
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult AssignRole(UsersRoleProvider usersRole, String emailAddress)
+        {
+
+             using (AgriMarketEntities context = new AgriMarketEntities())
+             {
+                var email = User.Identity.Name;
+                var id = context.Users.Where(a => a.EmailAddress == email).Select(a => a.UserId).FirstOrDefault();
+                var updated = new UserRole { UserID = id, RoleID = 3 };
+                context.UserRoles.Add(updated);
+                context.SaveChanges();
+            
+            }
+                return RedirectToAction("About", "Home");
         }
     }
 }

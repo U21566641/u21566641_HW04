@@ -11,4 +11,11 @@ Welcome @HttpContext.Current.User.Identity.Name
     {
         <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
     }
+
+    using (Html.BeginForm("AssignRole", "Home", FormMethod.Post, new { id = "assignRole" }))
+    {
+        <a href="javascript:document.getElementById('assignRole').submit()">Upgrade</a>
+    }
+
+
 }

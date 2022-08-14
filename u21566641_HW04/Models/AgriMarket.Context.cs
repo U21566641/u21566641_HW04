@@ -26,5 +26,7 @@ namespace u21566641_HW04.Models
         }
     
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
     }
 }
