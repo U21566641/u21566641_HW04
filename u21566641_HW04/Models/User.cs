@@ -18,6 +18,7 @@ namespace u21566641_HW04.Models
         public User()
         {
             this.UserRoles = new HashSet<UserRole>();
+            this.Products = new HashSet<Product>();
         }
     
         public int UserId { get; set; }
@@ -29,5 +30,7 @@ namespace u21566641_HW04.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRole> UserRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

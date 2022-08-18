@@ -10,6 +10,8 @@
         <EntityTypeShape EntityType="AgriMarketModel.UserRole" Width="1.5" PointX="3" PointY="1" />
         <AssociationConnector Association="AgriMarketModel.FK__UserRoles__RoleI__398D8EEE" />
         <AssociationConnector Association="AgriMarketModel.FK__UserRoles__UserI__38996AB5" />
+        <EntityTypeShape EntityType="AgriMarketModel.Product" Width="1.5" PointX="3" PointY="3.75" />
+        <AssociationConnector Association="AgriMarketModel.FK__Products__UserID__6FE99F9F" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

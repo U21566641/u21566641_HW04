@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="AgriMarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="50" />
+          <Property Name="ProductCategory" Type="varchar" MaxLength="50" />
+          <Property Name="QuantityOnHand" Type="int" />
+          <Property Name="ImageURL" Type="varchar" MaxLength="50" />
+          <Property Name="CostPrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="ID" />
@@ -31,6 +43,18 @@
           <Property Name="EmailAddress" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Products__UserID__6FE99F9F">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__UserRoles__RoleI__4AB81AF0">
           <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
           <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
@@ -56,9 +80,14 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="AgriMarketModelStoreContainer">
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Products__UserID__6FE99F9F" Association="Self.FK__Products__UserID__6FE99F9F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
           <AssociationSet Name="FK__UserRoles__RoleI__4AB81AF0" Association="Self.FK__UserRoles__RoleI__4AB81AF0">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="UserRoles" EntitySet="UserRoles" />
@@ -83,6 +112,7 @@
           <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="UserRoles" Relationship="AgriMarketModel.FK__UserRoles__UserI__38996AB5" FromRole="User" ToRole="UserRole" />
+          <NavigationProperty Name="Products" Relationship="AgriMarketModel.FK__Products__UserID__6FE99F9F" FromRole="User" ToRole="Product" />
         </EntityType>
         <EntityContainer Name="AgriMarketEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -95,6 +125,11 @@
           <AssociationSet Name="FK__UserRoles__UserI__38996AB5" Association="AgriMarketModel.FK__UserRoles__UserI__38996AB5">
             <End Role="User" EntitySet="Users" />
             <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+          <EntitySet Name="Products" EntityType="AgriMarketModel.Product" />
+          <AssociationSet Name="FK__Products__UserID__6FE99F9F" Association="AgriMarketModel.FK__Products__UserID__6FE99F9F">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Product" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Role">
@@ -139,6 +174,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QuantityOnHand" Type="Int32" />
+          <Property Name="ImageURL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CostPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="AgriMarketModel.FK__Products__UserID__6FE99F9F" FromRole="Product" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Products__UserID__6FE99F9F">
+          <End Type="AgriMarketModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="AgriMarketModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -171,6 +231,19 @@
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="AgriMarketModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CostPrice" ColumnName="CostPrice" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="QuantityOnHand" ColumnName="QuantityOnHand" />
+                <ScalarProperty Name="ProductCategory" ColumnName="ProductCategory" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

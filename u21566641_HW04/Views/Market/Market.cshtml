@@ -1,0 +1,25 @@
+﻿@model IEnumerable<u21566641_HW04.Models.Crop>
+
+
+@{
+    ViewBag.Title = "Market";
+    var SellingPrice = 0;
+}
+
+<h2>Market</h2>
+
+<div class="container">
+    <div class="row">
+        @foreach (var crop in Model)
+        { 
+            <div class="col-lg-4 col-md-6 col-sm-12 px-3">
+                <div>
+                    <img src="~/Media/Images/@crop.ImageURL" class="gallery" height="220" width="220" />
+                    <p>@crop.CropName</p>
+                    <p>Category: @crop.CropCategory</p>
+                    <p>Price: R@(crop.CostPrice + (crop.CostPrice * crop.GetMarkup() )) / kg</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

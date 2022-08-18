@@ -32,7 +32,7 @@ namespace u21566641_HW04.Controllers
 
         [HttpGet]
         [Authorize(Roles ="Supplier")]
-        public ActionResult CropRegistration()
+        public ActionResult ProductRegistration()
         {
             return View();
         }
@@ -44,6 +44,7 @@ namespace u21566641_HW04.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AssignRole(UsersRoleProvider usersRole, String emailAddress)
         {
 
