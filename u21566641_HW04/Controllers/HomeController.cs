@@ -42,7 +42,7 @@ namespace u21566641_HW04.Controllers
         {
             return RedirectToAction("Index", "Home");
         }
-
+        //Assigns Supplier role to user
         [HttpPost]
         public ActionResult AssignRole(UsersRoleProvider usersRole, String emailAddress)
         {

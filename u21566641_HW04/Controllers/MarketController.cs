@@ -22,7 +22,7 @@ namespace u21566641_HW04.Controllers
                 var crops = context.Products.ToList();
                 foreach (Product product in crops)
                 {
-                    if (product.ProductCategory == "Food")
+                    if (product.ProductCategory == "Food")//Checks category and adds relevant obj to list
                     {
                         Food food = new Food()
                         {
@@ -95,15 +95,16 @@ namespace u21566641_HW04.Controllers
        
         public ActionResult AddToCart(int id, string category)
         {
-            var item = GetType(id, category);
-            if (Session["Cart"] == null)
+            var item = GetType(id, category);//Creates new obj of relevant type to add to cart
+            if (Session["Cart"] == null)//Checks if anything in cart of this session
             {
                  using (AgriMarketEntities context = new AgriMarketEntities())
                 {
                     var c = context.Products.Where(a => a.ProductID == id).FirstOrDefault();
                     
                     List<Crop> cartList = new List<Crop>();
-                    List<Crop> cartListDuplicate = new List<Crop>();
+                    List<Crop> cartListDuplicate = new List<Crop>();//Duplicate list used to keep track
+                                                            //Of count of each item
                     if (cartList.Where(z => z.CropID == id).Count() == 0)
                     {
                         cartList.Add(item);
@@ -119,7 +120,7 @@ namespace u21566641_HW04.Controllers
 
 
             }
-            else
+            else//If cart in session, read what's in the cart and add new items to it
             {
                 using (AgriMarketEntities context = new AgriMarketEntities())
                 {
@@ -151,6 +152,7 @@ namespace u21566641_HW04.Controllers
             return View((List<Crop>)Session["Cart"]);
         }
 
+        //Determines the category of crop and returns an object of that category
         public Crop GetType(int id, string category)
         {
             using (AgriMarketEntities context = new AgriMarketEntities())
@@ -185,6 +187,66 @@ namespace u21566641_HW04.Controllers
                         Quantity = 1
                     };
                     return o;
+                }
+                else if (category == "Feed")
+                {
+                    Feed fe = new Feed()
+                    {
+                        CropID = c.ProductID,
+                        CropName = c.ProductName,
+                        CropCategory = c.ProductCategory,
+                        QuantityOnHand = c.QuantityOnHand,
+                        ImageURL = c.ImageURL,
+                        UserID = c.UserID,
+                        CostPrice = Convert.ToDouble(c.CostPrice),
+                        Quantity = 1
+                    };
+                    return fe;
+                }
+                else if (category == "Fiber")
+                {
+                    Fiber fi = new Fiber()
+                    {
+                        CropID = c.ProductID,
+                        CropName = c.ProductName,
+                        CropCategory = c.ProductCategory,
+                        QuantityOnHand = c.QuantityOnHand,
+                        ImageURL = c.ImageURL,
+                        UserID = c.UserID,
+                        CostPrice = Convert.ToDouble(c.CostPrice),
+                        Quantity = 1
+                    };
+                    return fi;
+                }
+                else if (category == "Ornamental")
+                {
+                    Ornamental orn = new Ornamental()
+                    {
+                        CropID = c.ProductID,
+                        CropName = c.ProductName,
+                        CropCategory = c.ProductCategory,
+                        QuantityOnHand = c.QuantityOnHand,
+                        ImageURL = c.ImageURL,
+                        UserID = c.UserID,
+                        CostPrice = Convert.ToDouble(c.CostPrice),
+                        Quantity = 1
+                    };
+                    return orn;
+                }
+                else if (category == "Industrial")
+                {
+                    Industrial i = new Industrial()
+                    {
+                        CropID = c.ProductID,
+                        CropName = c.ProductName,
+                        CropCategory = c.ProductCategory,
+                        QuantityOnHand = c.QuantityOnHand,
+                        ImageURL = c.ImageURL,
+                        UserID = c.UserID,
+                        CostPrice = Convert.ToDouble(c.CostPrice),
+                        Quantity = 1
+                    };
+                    return i;
                 }
 
             }

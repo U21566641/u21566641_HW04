@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace u21566641_HW04.Models
 {
+    //Forms are validated against metadata, as full class is used for EF and didnt want to break anything
     [MetadataType(typeof(UserMetaData))]
     public partial class User
     {

@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace u21566641_HW04.Models
 {
+    //Same reason as User class
     [MetadataType(typeof(ProductMetaData))]
     public partial class Product
     {

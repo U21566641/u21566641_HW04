@@ -68,6 +68,7 @@ namespace u21566641_HW04.Controllers
             return View();
         }
 
+        //Login by comparing entered details to DB details
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(UserLogin login, String returnUrl="")
@@ -120,6 +121,7 @@ namespace u21566641_HW04.Controllers
             return RedirectToAction("Login", "User");
         }
 
+        //Checks if email exists
         [NonAction]
         public bool doesEmailExist(string EmailAddress)
         {

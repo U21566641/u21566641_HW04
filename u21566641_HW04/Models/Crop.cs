@@ -73,7 +73,7 @@ namespace u21566641_HW04.Models
             set { mQuantity = value; }
         }
         public abstract double GetMarkup();
-        public virtual double GetTotalCost()
+        public virtual double GetTotalCost()//Gets total cost of number of specific item in cart
         {
             mTotalCost = Quantity * (Convert.ToDouble(CostPrice) +(Convert.ToDouble(CostPrice) * GetMarkup()));
             return mTotalCost;

@@ -20,11 +20,12 @@ namespace u21566641_HW04.Controllers
         [HttpPost]
         public ActionResult ProductRegistration(Product product, HttpPostedFileBase ImageURL)
         {
-
+            //Takes an ImageURL to save in fileSystem, as only a reference is saved in the DB
             if (ModelState.IsValid)
             {
                if(ImageURL != null)
                 {
+                    //Save to files
                     var fileName = Path.GetFileName(ImageURL.FileName);
                     var filePath = Server.MapPath(Url.Content("~/Media/Images"));
                     var savePath = Path.Combine(filePath, fileName);
