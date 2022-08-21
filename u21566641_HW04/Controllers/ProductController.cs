@@ -41,7 +41,7 @@ namespace u21566641_HW04.Controllers
                     product.UserID = id;
                     context.Products.Add(product);
                     context.SaveChanges();
-                    return RedirectToAction("About", "Home");
+                    return RedirectToAction("Market", "Market");
                     
                 }
 

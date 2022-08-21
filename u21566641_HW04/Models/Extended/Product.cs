@@ -21,8 +21,8 @@ namespace u21566641_HW04.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please select the crop's category")]
         public String ProductCategory { get; set; }
 
-        [Display(Name = "Number")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter the number which you would like to sell")]
+        [Display(Name = "Number of kgs")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter the number of kgs which you would like to sell")]
         public int QuantityOnHand { get; set; }
 
         public String ImageURL { get; set; }
