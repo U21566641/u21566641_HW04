@@ -26,12 +26,8 @@ namespace u21566641_HW04.Controllers
                     {
                         Food food = new Food()
                         {
-                            CropID = product.ProductID,
-                            CropName = product.ProductName,
-                            CropCategory = product.ProductCategory,
-                            QuantityOnHand = product.QuantityOnHand,
-                            ImageURL = product.ImageURL,
-                            UserID = product.UserID,
+                            CropID = product.ProductID, CropName = product.ProductName, CropCategory = product.ProductCategory,
+                            QuantityOnHand = product.QuantityOnHand, ImageURL = product.ImageURL, UserID = product.UserID,
                             CostPrice = Convert.ToDouble(product.CostPrice),
                         };
                         cropList.Add(food);
@@ -42,12 +38,8 @@ namespace u21566641_HW04.Controllers
                     {
                         Oil oil = new Oil()
                         {
-                            CropID = product.ProductID,
-                            CropName = product.ProductName,
-                            CropCategory = product.ProductCategory,
-                            QuantityOnHand = product.QuantityOnHand,
-                            ImageURL = product.ImageURL,
-                            UserID = product.UserID,
+                            CropID = product.ProductID,CropName = product.ProductName, CropCategory = product.ProductCategory,
+                            QuantityOnHand = product.QuantityOnHand, ImageURL = product.ImageURL, UserID = product.UserID,
                             CostPrice = Convert.ToDouble(product.CostPrice),
                         };
                         cropList.Add(oil);
@@ -71,24 +63,20 @@ namespace u21566641_HW04.Controllers
                     if (category == "Food")
                     {
                         f = new Food() {
-
-                            CropID = c.ProductID,
-                            CropName = c.ProductName,
-                            CropCategory = c.ProductCategory,
-                            QuantityOnHand = c.QuantityOnHand,
-                            ImageURL = c.ImageURL,
-                            UserID = c.UserID,
-                            CostPrice = Convert.ToDouble(c.CostPrice),
-                            Quantity = 1 
+                            CropID = c.ProductID, CropName = c.ProductName, CropCategory = c.ProductCategory,
+                            QuantityOnHand = c.QuantityOnHand, ImageURL = c.ImageURL, UserID = c.UserID,
+                            CostPrice = Convert.ToDouble(c.CostPrice), Quantity = 1 
                         };
 
                     }
                     List<Crop> cartList = new List<Crop>();
-                   
+                    List<Crop> cartListDuplicate = new List<Crop>();
                     if (cartList.Where(z => z.CropID == id).Count() == 0)
                     {
                         cartList.Add(f);
+                        cartListDuplicate.Add(f);
                         Session["Cart"] = cartList;
+                        Session["CartD"] = cartListDuplicate;
                         ViewBag.Cart = cartList.Count();
                         Session["count"] = 1;
                     }
@@ -107,27 +95,24 @@ namespace u21566641_HW04.Controllers
                     {
                         f = new Food()
                         {
-
-                            CropID = c.ProductID,
-                            CropName = c.ProductName,
-                            CropCategory = c.ProductCategory,
-                            QuantityOnHand = c.QuantityOnHand,
-                            ImageURL = c.ImageURL,
-                            UserID = c.UserID,
-                            CostPrice = Convert.ToDouble(c.CostPrice),
-                            Quantity = 1,
+                            CropID = c.ProductID, CropName = c.ProductName, CropCategory = c.ProductCategory,
+                            QuantityOnHand = c.QuantityOnHand, ImageURL = c.ImageURL, UserID = c.UserID,
+                            CostPrice = Convert.ToDouble(c.CostPrice), Quantity = 1 
                         };
 
                     }
 
                     List<Crop> cartList = (List<Crop>)Session["Cart"];
-                    var count = cartList.Where(z => z.CropID == id).Count() + 1;
+                    List<Crop> cartListDuplicate = (List<Crop>)Session["CartD"];
+                    var count = cartListDuplicate.Where(z => z.CropID == id).Count() + 1;
                     if (cartList.Where(z => z.CropID == id).Count() > 0)
                     {
-                        //cartList.RemoveAll(q => q.CropID == id);
+                        cartList.RemoveAll(q => q.CropID == id);
                         f.Quantity = count;
                         cartList.Add(f);
+                        cartListDuplicate.Add(f);
                         Session["Cart"] = cartList;
+                        Session["CartD"] = cartListDuplicate;
                         ViewBag.Cart = cartList.Count();
                         Session["count"] = 1;
                     }

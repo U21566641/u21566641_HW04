@@ -58,6 +58,7 @@ namespace u21566641_HW04.Controllers
 
             ViewBag.StatusMessage = message;
             ViewBag.Status = status;
+            ViewBag.message = message;
             return View(user);
         }
 

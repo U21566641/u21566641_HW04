@@ -3,7 +3,6 @@
 
 @{
     ViewBag.Title = "Market";
-    var sellingPrice = 0.0;
 }
 
 <h2>Market</h2>
@@ -12,8 +11,6 @@
     <div class="row">
         @foreach (var crop in Model)
         {
-            sellingPrice += (Convert.ToDouble(crop.CostPrice) + Convert.ToDouble((crop.CostPrice * crop.GetMarkup())));
-            Session["TotalCost"] = sellingPrice;
             <div class="col-lg-4 col-md-6 col-sm-12 px-3">
                 <div>
                     <img src="~/Media/Images/@crop.ImageURL" class="gallery" height="220" width="220" />

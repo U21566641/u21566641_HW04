@@ -44,7 +44,6 @@ namespace u21566641_HW04.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult AssignRole(UsersRoleProvider usersRole, String emailAddress)
         {
 
@@ -57,7 +56,7 @@ namespace u21566641_HW04.Controllers
                 context.SaveChanges();
             
             }
-                return RedirectToAction("About", "Home");
+                return RedirectToAction("Index", "Home");
         }
     }
 }

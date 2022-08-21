@@ -73,7 +73,10 @@
     
 
 }
-
+@if (!string.IsNullOrEmpty(ViewBag.message))
+{ 
+    <p>@ViewBag.message</p>
+}
 
 
 <div>

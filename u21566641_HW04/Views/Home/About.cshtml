@@ -7,15 +7,28 @@ Welcome @HttpContext.Current.User.Identity.Name
 
 @if (Request.IsAuthenticated)
 {
+
+    using (Html.BeginForm("AssignRole", "Home", FormMethod.Post, new { id = "assignRole" }))
+    {
+        <br />
+        <p>
+            Click here to upgrade to a seller account:
+            <a href="javascript:document.getElementById('assignRole').submit()">Upgrade</a>
+        </p>
+        
+        <br />
+        <br />
+    }
     using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm" }))
     {
         <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
     }
 
-    using (Html.BeginForm("AssignRole", "Home", FormMethod.Post, new { id = "assignRole" }))
-    {
-        <a href="javascript:document.getElementById('assignRole').submit()">Upgrade</a>
-    }
 
 
+
+}
+else
+{
+    <p>Nothing to show here...</p>
 }
