@@ -21,11 +21,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Add Product", "ProductRegistration", "Product")</li>
                     <li>@Html.ActionLink("Market", "Market", "Market")</li>
+                    <li>@Html.ActionLink("My Details", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (User.IsInRole("Supplier") | User.IsInRole("Admin"))
+                    {
+                    <li>@Html.ActionLink("Add Product", "ProductRegistration", "Product")</li>
+                    }
                     <li>@Html.ActionLink("Cart", "Cart", "Market")</li>
                 </ul>
             </div>
@@ -36,7 +38,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - AgriMarket System</p>
         </footer>
     </div>
 

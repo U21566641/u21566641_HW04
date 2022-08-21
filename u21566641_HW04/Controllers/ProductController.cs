@@ -10,13 +10,14 @@ namespace u21566641_HW04.Controllers
 {
     public class ProductController : Controller
     {
+        [Authorize(Roles = "Admin, Supplier")]
         // GET: Product
         [HttpGet]
         public ActionResult ProductRegistration()
         {
             return View();
         }
-
+        
         [HttpPost]
         public ActionResult ProductRegistration(Product product, HttpPostedFileBase ImageURL)
         {

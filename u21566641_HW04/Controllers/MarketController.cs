@@ -111,8 +111,7 @@ namespace u21566641_HW04.Controllers
                         cartListDuplicate.Add(item);
                         Session["Cart"] = cartList;
                         Session["CartD"] = cartListDuplicate;
-                        ViewBag.Cart = cartList.Count();
-                        Session["count"] = 1;
+                        
                     }
                     
 
@@ -138,8 +137,6 @@ namespace u21566641_HW04.Controllers
                         cartListDuplicate.Add(item);
                         Session["Cart"] = cartList;
                         Session["CartD"] = cartListDuplicate;
-                        ViewBag.Cart = cartList.Count();
-                        Session["count"] = 1;
                     }
                 }
             }
