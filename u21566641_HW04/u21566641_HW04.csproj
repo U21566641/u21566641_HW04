@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -121,12 +129,58 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MarketController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Cryptography.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AgriMarket.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AgriMarket.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AgriMarket.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AgriMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AgriMarket.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AgriMarket.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Crop.cs" />
+    <Compile Include="Models\CropTypes\Fiber.cs" />
+    <Compile Include="Models\CropTypes\Food.cs" />
+    <Compile Include="Models\CropTypes\Industrial.cs" />
+    <Compile Include="Models\CropTypes\Oil.cs" />
+    <Compile Include="Models\CropTypes\Ornamental.cs" />
+    <Compile Include="Models\Extended\Product.cs" />
+    <Compile Include="Models\Extended\User.cs" />
+    <Compile Include="Models\CropTypes\Feed.cs" />
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>AgriMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>AgriMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>AgriMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserLogin.cs" />
+    <Compile Include="Models\UserRole.cs">
+      <DependentUpon>AgriMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UsersRoleProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\AgriMarket.mdf" />
+    <Content Include="App_Data\AgriMarket_log.ldf">
+      <DependentUpon>AgriMarket.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -135,8 +189,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\AgriMarket.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AgriMarket.Context.cs</LastGenOutput>
+      <DependentUpon>AgriMarket.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\AgriMarket.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AgriMarket.edmx</DependentUpon>
+      <LastGenOutput>AgriMarket.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\AgriMarket.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AgriMarket.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\AgriMarket.edmx.diagram">
+      <DependentUpon>AgriMarket.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -162,10 +233,14 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\User\Registration.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Product\ProductRegistration.cshtml" />
+    <Content Include="Views\Market\Market.cshtml" />
+    <Content Include="Views\Market\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Media\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -179,6 +254,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

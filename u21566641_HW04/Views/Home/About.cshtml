@@ -1,7 +1,34 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+
+Welcome @HttpContext.Current.User.Identity.Name
+
+@if (Request.IsAuthenticated)
+{
+
+    using (Html.BeginForm("AssignRole", "Home", FormMethod.Post, new { id = "assignRole" }))
+    {
+        <br />
+        <p>
+            Click here to upgrade to a seller account:
+            <a href="javascript:document.getElementById('assignRole').submit()">Upgrade</a>
+        </p>
+        
+        <br />
+        <br />
+    }
+    using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+    }
+
+
+
+
+}
+else
+{
+    <p>Nothing to show here...</p>
+}
