@@ -11,8 +11,8 @@ namespace u21566641_HW04.Models
         public Food() { }
 
         public Food(int _CropID, string _CropName, string _CropCategory, int _QuantityOnHand,
-            string _ImageURL, int _UserID, int _CostPrice, double _Markup) : base(_CropID,
-                _CropName, _CropCategory, _QuantityOnHand, _ImageURL, _UserID, _CostPrice, _Markup)
+            string _ImageURL, int _UserID, int _CostPrice, double _Markup, int _Quantity) : base(_CropID,
+                _CropName, _CropCategory, _QuantityOnHand, _ImageURL, _UserID, _CostPrice, _Markup, _Quantity)
         {
         }
         public override double GetMarkup()

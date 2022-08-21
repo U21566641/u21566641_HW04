@@ -18,7 +18,6 @@ namespace u21566641_HW04.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult ProductRegistration(Product product, HttpPostedFileBase ImageURL)
         {
 
@@ -43,6 +42,7 @@ namespace u21566641_HW04.Controllers
                     context.Products.Add(product);
                     context.SaveChanges();
                     return RedirectToAction("About", "Home");
+                    
                 }
 
             }

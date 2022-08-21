@@ -234,6 +234,7 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Product\ProductRegistration.cshtml" />
     <Content Include="Views\Market\Market.cshtml" />
+    <Content Include="Views\Market\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Media\Images\" />

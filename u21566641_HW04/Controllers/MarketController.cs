@@ -9,13 +9,14 @@ namespace u21566641_HW04.Controllers
 {
     public class MarketController : Controller
     {
-        public static List<Crop> cropList = new List<Crop>();
+
 
         // GET: Market
         [HttpGet]
         public ActionResult Market()
         {
-            
+            List<Crop> cropList = new List<Crop>();
+
             using (AgriMarketEntities context = new AgriMarketEntities())
             {
                 var crops = context.Products.ToList();
@@ -34,6 +35,8 @@ namespace u21566641_HW04.Controllers
                             CostPrice = Convert.ToDouble(product.CostPrice),
                         };
                         cropList.Add(food);
+
+
                     }
                     else if (product.ProductCategory == "Oil")
                     {
@@ -50,10 +53,95 @@ namespace u21566641_HW04.Controllers
                         cropList.Add(oil);
                     }
                 }
+
                 return View(cropList);
             }
 
         }
+
+       
+        public ActionResult AddToCart(int id, string category)
+        {
+            Food f = new Food();
+            if (Session["Cart"] == null)
+            {
+                 using (AgriMarketEntities context = new AgriMarketEntities())
+                {
+                    var c = context.Products.Where(a => a.ProductID == id).FirstOrDefault();
+                    if (category == "Food")
+                    {
+                        f = new Food() {
+
+                            CropID = c.ProductID,
+                            CropName = c.ProductName,
+                            CropCategory = c.ProductCategory,
+                            QuantityOnHand = c.QuantityOnHand,
+                            ImageURL = c.ImageURL,
+                            UserID = c.UserID,
+                            CostPrice = Convert.ToDouble(c.CostPrice),
+                            Quantity = 1 
+                        };
+
+                    }
+                    List<Crop> cartList = new List<Crop>();
+                   
+                    if (cartList.Where(z => z.CropID == id).Count() == 0)
+                    {
+                        cartList.Add(f);
+                        Session["Cart"] = cartList;
+                        ViewBag.Cart = cartList.Count();
+                        Session["count"] = 1;
+                    }
+                    
+
+                }
+
+
+            }
+            else
+            {
+                using (AgriMarketEntities context = new AgriMarketEntities())
+                {
+                    var c = context.Products.Where(a => a.ProductID == id).FirstOrDefault();
+                    if (category == "Food")
+                    {
+                        f = new Food()
+                        {
+
+                            CropID = c.ProductID,
+                            CropName = c.ProductName,
+                            CropCategory = c.ProductCategory,
+                            QuantityOnHand = c.QuantityOnHand,
+                            ImageURL = c.ImageURL,
+                            UserID = c.UserID,
+                            CostPrice = Convert.ToDouble(c.CostPrice),
+                            Quantity = 1,
+                        };
+
+                    }
+
+                    List<Crop> cartList = (List<Crop>)Session["Cart"];
+                    var count = cartList.Where(z => z.CropID == id).Count() + 1;
+                    if (cartList.Where(z => z.CropID == id).Count() > 0)
+                    {
+                        //cartList.RemoveAll(q => q.CropID == id);
+                        f.Quantity = count;
+                        cartList.Add(f);
+                        Session["Cart"] = cartList;
+                        ViewBag.Cart = cartList.Count();
+                        Session["count"] = 1;
+                    }
+                }
+            }
+            return RedirectToAction("Market");
+        }
+
+        [HttpGet]
+        public ActionResult Cart()
+        {
+            return View((List<Crop>)Session["Cart"]);
+        }
+
 
         
        

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<u21566641_HW04.Models.Crop>
+
+@{
+    ViewBag.Title = "Cart";
+}
+
+<h2>Cart</h2>
+
+<div class="container">
+
+    <!-- create empty table to be populated with javascript -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Crop</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+           @foreach (var c in Model)
+           {
+               
+                <tr>
+                    <td>@c.CropName</td>
+                    <td>@c.Quantity</td>
+                    <td>@c.GetTotalCost()</td>
+                </tr>
+               
+
+           }
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+
+</div>
