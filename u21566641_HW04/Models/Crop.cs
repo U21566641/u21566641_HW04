@@ -10,10 +10,10 @@ namespace u21566641_HW04.Models
         private int mCropID;
         private string mCropName;
         private string mCropCategory;
-        private int mQuantityOnHand;
+        private int? mQuantityOnHand;
         private string mImageUrl;
-        private int mUserID;
-        private int mCostPrice;
+        private int? mUserID;
+        private double? mCostPrice;
         private double mMarkup = 0.15;
         private int mQuantity = 0;
         private double mTotalCost = 0;
@@ -33,14 +33,45 @@ namespace u21566641_HW04.Models
             mMarkup = _Markup;
             mQuantity = _Quantity;
         }
-        public int CropID { get; set; }
-        public string CropName { get; set; }
-        public string CropCategory { get; set; }
-        public int? QuantityOnHand { get; set; } 
-        public string ImageURL { get; set; }
-        public int? UserID { get; set; }
-        public double? CostPrice { get; set; }
-        public int Quantity { get; set; }
+        public int CropID 
+        { get { return mCropID; }
+          set { mCropID = value; }
+        }
+        public string CropName
+        {
+            get { return mCropName; }
+            set { mCropName = value; }
+        }
+        public string CropCategory
+        {
+            get { return mCropCategory; }
+            set { mCropCategory = value; }
+        }
+        public int? QuantityOnHand
+        {
+            get { return mQuantityOnHand; }
+            set { mQuantityOnHand = value; }
+        }
+        public string ImageURL
+        {
+            get { return mImageUrl; }
+            set { mImageUrl = value; }
+        }
+        public int? UserID
+        {
+            get { return mUserID; }
+            set { mUserID = value; }
+        }
+        public double? CostPrice
+        {
+            get { return mCostPrice; }
+            set { mCostPrice = value; }
+        }
+        public int Quantity
+        {
+            get { return mQuantity; }
+            set { mQuantity = value; }
+        }
         public abstract double GetMarkup();
         public virtual double GetTotalCost()
         {
