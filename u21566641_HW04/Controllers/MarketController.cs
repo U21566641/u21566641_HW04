@@ -38,11 +38,52 @@ namespace u21566641_HW04.Controllers
                     {
                         Oil oil = new Oil()
                         {
-                            CropID = product.ProductID,CropName = product.ProductName, CropCategory = product.ProductCategory,
+                            CropID = product.ProductID, CropName = product.ProductName, CropCategory = product.ProductCategory,
                             QuantityOnHand = product.QuantityOnHand, ImageURL = product.ImageURL, UserID = product.UserID,
                             CostPrice = Convert.ToDouble(product.CostPrice),
                         };
                         cropList.Add(oil);
+                    }
+                    else if (product.ProductCategory == "Fiber")
+                    {
+                        Fiber fiber = new Fiber()
+                        {
+                            CropID = product.ProductID, CropName = product.ProductName, CropCategory = product.ProductCategory,
+                            QuantityOnHand = product.QuantityOnHand, ImageURL = product.ImageURL, UserID = product.UserID,
+                            CostPrice = Convert.ToDouble(product.CostPrice),
+                        };
+                        cropList.Add(fiber);
+                    }
+                    else if (product.ProductCategory == "Feed")
+                    {
+                        Feed feed = new Feed()
+                        {
+                            CropID = product.ProductID, CropName = product.ProductName, CropCategory = product.ProductCategory,
+                            QuantityOnHand = product.QuantityOnHand, ImageURL = product.ImageURL, UserID = product.UserID,
+                            CostPrice = Convert.ToDouble(product.CostPrice),
+                        };
+                        cropList.Add(feed);
+                            
+                    }
+                    else if (product.ProductCategory == "Ornamental")
+                    {
+                        Ornamental ornamental = new Ornamental()
+                        { 
+                        CropID = product.ProductID, CropName = product.ProductName, CropCategory = product.ProductCategory,
+                            QuantityOnHand = product.QuantityOnHand, ImageURL = product.ImageURL, UserID = product.UserID,
+                            CostPrice = Convert.ToDouble(product.CostPrice),
+                        };
+                        cropList.Add(ornamental);
+                    }
+                    else if (product.ProductCategory == "Industrial")
+                    { 
+                        Industrial industrial = new Industrial()
+                        {
+                            CropID = product.ProductID, CropName = product.ProductName, CropCategory = product.ProductCategory,
+                            QuantityOnHand = product.QuantityOnHand, ImageURL = product.ImageURL, UserID = product.UserID,
+                            CostPrice = Convert.ToDouble(product.CostPrice),
+                        };
+                        cropList.Add(industrial);
                     }
                 }
 

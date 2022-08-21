@@ -152,11 +152,14 @@
       <DependentUpon>AgriMarket.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Crop.cs" />
+    <Compile Include="Models\CropTypes\Fiber.cs" />
     <Compile Include="Models\CropTypes\Food.cs" />
+    <Compile Include="Models\CropTypes\Industrial.cs" />
     <Compile Include="Models\CropTypes\Oil.cs" />
+    <Compile Include="Models\CropTypes\Ornamental.cs" />
     <Compile Include="Models\Extended\Product.cs" />
     <Compile Include="Models\Extended\User.cs" />
-    <Compile Include="Models\Feed.cs" />
+    <Compile Include="Models\CropTypes\Feed.cs" />
     <Compile Include="Models\Product.cs">
       <DependentUpon>AgriMarket.tt</DependentUpon>
     </Compile>

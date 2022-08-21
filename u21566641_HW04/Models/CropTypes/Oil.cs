@@ -17,7 +17,7 @@ namespace u21566641_HW04.Models
         public override double GetMarkup()
         {
             double markup;
-            markup = 0.24;
+            markup = 0.5;
             return markup;
         }
     }
